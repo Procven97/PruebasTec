@@ -110,6 +110,9 @@ public class DBController {
     @PostMapping(value = "/createdetalle_factura")
     public  String createDetalle_Factura(@RequestBody Detalle detalle_factura){
         String resp;
+        Float cantidad  = (float) detalle_factura.getCantidad();     
+          Float resultado  = cantidad * producto_Repository.findById(detalle_factura.getId_producto()).get().getPrecio();
+          detalle_factura.setPrecio(resultado);
         
         try {
                detalle_Repository.save(detalle_factura);
